@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CHLOÉ ATALLAH / KLOROFIL — Index</title>
+  <style>
+    :root {
+      --bg-dark: #070d0a;
+      --green-deep: #0f291e;
+      --green-accent: #2e7d54;
+      --green-bright: #00ff75;
+      --glass-bg: rgba(15, 41, 30, 0.55);
+      --glass-border: rgba(46, 125, 84, 0.35);
+      --text-main: #e6ede8;
+      --text-muted: #88a393;
+      --font-mono: "Courier New", Courier, monospace;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 15% 20%, rgba(46, 125, 84, 0.15) 0%, transparent 45%),
+        radial-gradient(circle at 85% 80%, rgba(0, 255, 117, 0.08) 0%, transparent 50%);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.4;
+      padding: 24px;
+      min-height: 100vh;
+    }
+
+    header {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      padding: 24px;
+      margin-bottom: 32px;
+      border-radius: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .brand-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      color: var(--text-main);
+    }
+
+    .brand-subtitle {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--green-bright);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 4px;
+    }
+
+    .filter-bar {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: rgba(7, 13, 10, 0.6);
+      color: var(--text-muted);
+      border: 1px solid var(--glass-border);
+      padding: 8px 16px;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: all 0.2s ease;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--green-bright);
+      color: var(--bg-dark);
+      border-color: var(--green-bright);
+      font-weight: bold;
+    }
+
+    .feed-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: 4px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: var(--green-bright);
+      box-shadow: 0 10px 30px -10px rgba(0, 255, 117, 0.2);
+    }
+
+    .card-thumb {
+      height: 220px;
+      background: #122119;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .card-thumb-text {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--green-bright);
+      opacity: 0.7;
+    }
+
+    .card-content {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex-grow: 1;
+    }
+
+    .card-meta {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .card-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    .card-tags {
+      margin-top: auto;
+      padding-top: 12px;
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--green-bright);
+      background: rgba(0, 255, 117, 0.08);
+      border: 1px solid rgba(0, 255, 117, 0.2);
+      padding: 3px 8px;
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div>
+      <h1 class="brand-title">CHLOÉ ATALLAH</h1>
+      <div class="brand-subtitle">KLOROFIL // Strategic Branding & Audio Index</div>
+    </div>
+    <nav class="filter-bar">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="branding">Visual Identity</button>
+      <button class="filter-btn" data-filter="audio">DJ & Radio</button>
+      <button class="filter-btn" data-filter="events">Events</button>
+    </nav>
+  </header>
+
+  <main class="feed-grid">
+    <article class="card" data-category="branding">
+      <div class="card-thumb" style="background: linear-gradient(135deg, #0f291e, #1a4d35);">
+        <span class="card-thumb-text">[ Visual Identity ]</span>
+      </div>
+      <div class="card-content">
+        <div class="card-meta">
+          <span>IDENTITY // 360°</span>
+          <span>2026</span>
+        </div>
+        <h2 class="card-title">TONAL Hi-Fi Concept</h2>
+        <p class="card-desc">Brand strategy, graphic identity, and modular spatial signage for a hybrid specialty coffee & listening room.</p>
+        <div class="card-tags">
+          <span class="tag">#branding</span>
+          <span class="tag">#typography</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" data-category="audio">
+      <div class="card-thumb" style="background: linear-gradient(135deg, #071710, #0f3d26);">
+        <span class="card-thumb-text">[ Sound & Curation ]</span>
+      </div>
+      <div class="card-content">
+        <div class="card-meta">
+          <span>KLOROFIL // RADIO</span>
+          <span>2026</span>
+        </div>
+        <h2 class="card-title">LYL Radio Broadcast</h2>
+        <p class="card-desc">Live set recording exploring leftfield bass, UK garage, electro, and experimental breakbeats.</p>
+        <div class="card-tags">
+          <span class="tag">#audio</span>
+          <span class="tag">#leftfield</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" data-category="events">
+      <div class="card-thumb" style="background: linear-gradient(135deg, #143628, #070d0a);">
+        <span class="card-thumb-text">[ Production ]</span>
+      </div>
+      <div class="card-content">
+        <div class="card-meta">
+          <span>STAGE MGMT</span>
+          <span>2026</span>
+        </div>
+        <h2 class="card-title">Aegis Festival — Cliff Side</h2>
+        <p class="card-desc">Technical crew coordination, artist liaison, safety logistics, and stage operations management.</p>
+        <div class="card-tags">
+          <span class="tag">#production</span>
+          <span class="tag">#events</span>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <script>
+    const buttons = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.card');
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.getAttribute('data-filter');
+
+        cards.forEach(card => {
+          if (filter === 'all' || card.getAttribute('data-category') === filter) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
