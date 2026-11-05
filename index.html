@@ -12,8 +12,8 @@
   <style>
     :root {
       --bg-dark: #0b0f0c;
-      --panel-bg: rgba(15, 23, 17, 0.65);
-      --panel-border: rgba(62, 92, 69, 0.35);
+      --panel-bg: rgba(15, 23, 17, 0.75);
+      --panel-border: rgba(62, 92, 69, 0.4);
       --moss-accent: #4f7942;
       --moss-bright: #7fa976;
       --text-main: #e2e8e4;
@@ -34,3 +34,65 @@
       font-family: var(--font-sans);
       min-height: 100vh;
       overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Temporary Animated Moss-Green Atmospheric Background */
+    .bg-atmosphere {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+      background: 
+        radial-gradient(circle at 50% 30%, rgba(79, 121, 66, 0.28) 0%, transparent 60%),
+        radial-gradient(circle at 80% 80%, rgba(15, 23, 17, 0.95) 0%, transparent 50%),
+        linear-gradient(135deg, #0b0f0c 0%, #121a14 50%, #0b0f0c 100%);
+    }
+
+    /* Subtitle grid overlay effect */
+    .bg-grid-pattern {
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(62, 92, 69, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(62, 92, 69, 0.08) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    /* Shell Layout */
+    .page-wrapper {
+      position: relative;
+      z-index: 10;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 32px;
+    }
+
+    /* Top Brand Header */
+    header.brand-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      background: var(--panel-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--panel-border);
+      border-radius: 8px;
+    }
+
+    .brand-name {
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: -0.16px;
+      text-transform: uppercase;
+    }
+
+    /* Reserved 3D Character Container Slot */
+    .character-3d-stage {
+      position: relative;
+      width: 100%;
