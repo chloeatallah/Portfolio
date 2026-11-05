@@ -12,15 +12,14 @@
   <style>
     :root {
       --bg-dark: #0b0f0c;
-      --panel-bg: rgba(15, 23, 17, 0.85);
-      --panel-border: rgba(62, 92, 69, 0.4);
+      --panel-bg: rgba(15, 23, 17, 0.65);
+      --panel-border: rgba(62, 92, 69, 0.35);
       --moss-accent: #4f7942;
       --moss-bright: #7fa976;
       --text-main: #e2e8e4;
       --text-muted: #809385;
       --font-sans: 'Space Grotesk', -apple-system, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
-      --blur-val: 16px;
     }
 
     * {
@@ -35,38 +34,3 @@
       font-family: var(--font-sans);
       min-height: 100vh;
       overflow-x: hidden;
-      position: relative;
-    }
-
-    /* Ambient Gradient Background Layer */
-    .backdrop-container {
-      position: fixed;
-      inset: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 0;
-      pointer-events: none;
-      background: 
-        radial-gradient(circle at 50% 30%, rgba(79, 121, 66, 0.25) 0%, transparent 60%),
-        radial-gradient(circle at 80% 80%, rgba(15, 23, 17, 0.9) 0%, transparent 50%),
-        #0b0f0c;
-    }
-
-    .wrapper {
-      position: relative;
-      z-index: 10;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 2rem;
-    }
-
-    /* Top Brand Header Box */
-    header.brand-nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 1.5rem;
-      background: var(--panel-bg);
-      backdrop-filter: blur(var
