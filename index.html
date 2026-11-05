@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chloé Atallah — Portfolio</title>
   
-  <!-- Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
@@ -39,7 +38,7 @@
       position: relative;
     }
 
-    /* Ambient Motion Background Layer */
+    /* Ambient Gradient Background Layer */
     .backdrop-container {
       position: fixed;
       inset: 0;
@@ -48,12 +47,11 @@
       z-index: 0;
       pointer-events: none;
       background: 
-        radial-gradient(circle at 50% 30%, rgba(79, 121, 66, 0.22) 0%, transparent 60%),
+        radial-gradient(circle at 50% 30%, rgba(79, 121, 66, 0.25) 0%, transparent 60%),
         radial-gradient(circle at 80% 80%, rgba(15, 23, 17, 0.9) 0%, transparent 50%),
         #0b0f0c;
     }
 
-    /* Main Page Shell */
     .wrapper {
       position: relative;
       z-index: 10;
@@ -64,40 +62,11 @@
       padding: 2rem;
     }
 
-    /* Top Brand Header */
+    /* Top Brand Header Box */
     header.brand-nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 1rem 1.5rem;
       background: var(--panel-bg);
-      backdrop-filter: blur(var(--blur-val));
-      -webkit-backdrop-filter: blur(var(--blur-val));
-      border: 1px solid var(--panel-border);
-      border-radius: 8px;
-    }
-
-    .brand-title {
-      font-size: 1.1rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: -0.01em;
-    }
-
-    .brand-alias {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      color: var(--moss-bright);
-      margin-left: 0.75rem;
-    }
-
-    /* Hat Badge */
-    .hat-badge {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.22em;
-      color: var(--moss-bright);
-      text-transform: uppercase;
-      background: rgba(79, 121, 66, 0.15);
-      border: 1px solid var(--panel-border);
-      padding: 0.35rem 0.85rem;
+      backdrop-filter: blur(var
