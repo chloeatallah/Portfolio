@@ -13,16 +13,15 @@
   <style>
     :root {
       --bg-dark: #0b0f0c;
-      --panel-bg: rgba(15, 23, 17, 0.75);
-      --panel-border: rgba(62, 92, 69, 0.35);
+      --panel-bg: rgba(15, 23, 17, 0.85);
+      --panel-border: rgba(62, 92, 69, 0.4);
       --moss-accent: #4f7942;
       --moss-bright: #7fa976;
       --text-main: #e2e8e4;
       --text-muted: #809385;
-      --text-shadow: drop-shadow(1.5px 1.5px 2px rgba(0, 0, 0, 0.85));
       --font-sans: 'Space Grotesk', -apple-system, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
-      --blur-val: 18px;
+      --blur-val: 16px;
     }
 
     * {
@@ -47,15 +46,14 @@
       width: 100vw;
       height: 100vh;
       z-index: 0;
-      overflow: hidden;
       pointer-events: none;
       background: 
-        radial-gradient(circle at 20% 20%, rgba(79, 121, 66, 0.18) 0%, transparent 45%),
-        radial-gradient(circle at 80% 80%, rgba(15, 23, 17, 0.8) 0%, transparent 50%),
-        var(--bg-dark);
+        radial-gradient(circle at 50% 30%, rgba(79, 121, 66, 0.22) 0%, transparent 60%),
+        radial-gradient(circle at 80% 80%, rgba(15, 23, 17, 0.9) 0%, transparent 50%),
+        #0b0f0c;
     }
 
-    /* Main Shell */
+    /* Main Page Shell */
     .wrapper {
       position: relative;
       z-index: 10;
@@ -66,7 +64,7 @@
       padding: 2rem;
     }
 
-    /* Header */
+    /* Top Brand Header */
     header.brand-nav {
       display: flex;
       justify-content: space-between;
@@ -77,11 +75,6 @@
       -webkit-backdrop-filter: blur(var(--blur-val));
       border: 1px solid var(--panel-border);
       border-radius: 8px;
-      transition: border-color 0.3s ease;
-    }
-
-    header.brand-nav:hover {
-      border-color: rgba(127, 169, 118, 0.5);
     }
 
     .brand-title {
@@ -98,7 +91,7 @@
       margin-left: 0.75rem;
     }
 
-    /* Center Badge */
+    /* Hat Badge */
     .hat-badge {
       font-family: var(--font-mono);
       font-size: 0.65rem;
@@ -108,11 +101,3 @@
       background: rgba(79, 121, 66, 0.15);
       border: 1px solid var(--panel-border);
       padding: 0.35rem 0.85rem;
-      border-radius: 20px;
-      transition: all 0.3s ease;
-    }
-
-    .hat-badge:hover {
-      background: rgba(79, 121, 66, 0.3);
-      border-color: var(--moss-bright);
-      box-shadow
