@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chloé Atallah — Archive / Portfolio</title>
+  <title>Chloé Atallah — Portfolio</title>
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,16 +13,16 @@
   <style>
     :root {
       --bg-dark: #0b0f0c;
-      --panel-bg: rgba(15, 23, 17, 0.65);
+      --panel-bg: rgba(15, 23, 17, 0.7);
       --panel-border: rgba(62, 92, 69, 0.35);
       --moss-accent: #4f7942;
       --moss-bright: #7fa976;
       --text-main: #e2e8e4;
       --text-muted: #809385;
-      --text-shadow: drop-shadow(1.5px 1.5px 2px rgba(0, 0, 0, 0.75));
+      --text-shadow: drop-shadow(1.5px 1.5px 2px rgba(0, 0, 0, 0.85));
       --font-sans: 'Space Grotesk', -apple-system, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
-      --blur-val: 16px;
+      --blur-val: 18px;
     }
 
     * {
@@ -40,32 +40,16 @@
       position: relative;
     }
 
-    /* --- Background Video / Atmosphere Overlay --- */
-    .backdrop-container {
+    /* Ambient Animated Canvas Background */
+    #bgCanvas {
       position: fixed;
       inset: 0;
       width: 100vw;
       height: 100vh;
       z-index: 0;
-      overflow: hidden;
       pointer-events: none;
     }
 
-    .backdrop-video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0.35;
-      filter: grayscale(30%) contrast(110%);
-    }
-
-    .backdrop-overlay {
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 50% 50%, rgba(11, 15, 12, 0.4) 0%, rgba(11, 15, 12, 0.95) 100%);
-    }
-
-    /* --- Layout Structure --- */
     .wrapper {
       position: relative;
       z-index: 10;
@@ -76,7 +60,7 @@
       padding: 2rem;
     }
 
-    /* Top Brand Header */
+    /* Top Header */
     header.brand-nav {
       display: flex;
       justify-content: space-between;
@@ -90,10 +74,10 @@
     }
 
     .brand-title {
-      font-size: 1rem;
+      font-size: 1.1rem;
       font-weight: 600;
-      letter-spacing: -0.01em;
       text-transform: uppercase;
+      letter-spacing: -0.01em;
     }
 
     .brand-alias {
@@ -103,15 +87,26 @@
       margin-left: 0.75rem;
     }
 
-    /* Floating Navigation (Cargo 5607 Style) */
+    /* Center Badge (Hat Text Concept) */
+    .hat-badge {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      color: var(--moss-bright);
+      text-transform: uppercase;
+      background: rgba(79, 121, 66, 0.15);
+      border: 1px solid var(--panel-border);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+    }
+
+    /* Main Navigation (Clean: About me.rtf & Projects↓) */
     nav.main-nav {
       display: flex;
-      flex-wrap: wrap;
       justify-content: center;
       align-items: center;
-      gap: 1.5rem 2.5rem;
-      margin: auto 0;
-      padding: 4rem 1rem;
+      gap: 3rem;
+      margin: 3rem 0 1rem 0;
     }
 
     .nav-item {
@@ -119,10 +114,9 @@
       border: none;
       color: #ffffff;
       font-family: var(--font-sans);
-      font-size: 1.25rem;
+      font-size: 1.35rem;
       font-weight: 500;
       cursor: pointer;
-      text-decoration: none;
       filter: var(--text-shadow);
       transition: all 0.25s ease;
       display: flex;
@@ -136,19 +130,12 @@
       transform: translateY(-2px);
     }
 
-    .nav-item .ext-arrow {
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-
-    /* Sub-Projects Filter Panel */
+    /* Projects Sub-Filter Buttons */
     .sub-filter-panel {
       display: none;
       justify-content: center;
       gap: 0.75rem;
       flex-wrap: wrap;
-      margin-top: -2rem;
       margin-bottom: 2rem;
     }
 
@@ -178,16 +165,39 @@
       background: rgba(79, 121, 66, 0.3);
     }
 
-    /* Projects Content Grid */
-    .projects-grid {
+    /* Projects Grid & Smooth Scroll Bar */
+    .projects-container {
       display: none;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 1.5rem;
-      margin-bottom: 4rem;
+      max-height: 520px;
+      overflow-y: auto;
+      padding-right: 0.5rem;
+      margin-bottom: 2rem;
     }
 
-    .projects-grid.visible {
+    .projects-container.visible {
+      display: block;
+    }
+
+    /* Custom Smooth Scrollbar */
+    .projects-container::-webkit-scrollbar {
+      width: 6px;
+    }
+    .projects-container::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 4px;
+    }
+    .projects-container::-webkit-scrollbar-thumb {
+      background: var(--panel-border);
+      border-radius: 4px;
+    }
+    .projects-container::-webkit-scrollbar-thumb:hover {
+      background: var(--moss-accent);
+    }
+
+    .projects-grid {
       display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
     }
 
     .project-card {
@@ -209,7 +219,7 @@
 
     .card-preview {
       width: 100%;
-      height: 200px;
+      height: 180px;
       background: rgba(0, 0, 0, 0.5);
       display: flex;
       align-items: center;
@@ -239,57 +249,62 @@
       text-transform: uppercase;
     }
 
-    .card-desc {
-      font-size: 0.85rem;
-      color: var(--text-muted);
+    /* Footer Section (Audio Bar + Right Links) */
+    footer.page-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.5rem;
+      margin-top: auto;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--panel-border);
     }
 
-    /* --- Landing Page Audio Bar (Fixed Bottom) --- */
-    .music-bar-container {
+    /* Custom Audio Player Box (Integrated into Main Panel style) */
+    .audio-player-box {
       background: var(--panel-bg);
       backdrop-filter: blur(var(--blur-val));
       -webkit-backdrop-filter: blur(var(--blur-val));
       border: 1px solid var(--panel-border);
       border-radius: 8px;
-      padding: 0.75rem 1.25rem;
+      padding: 0.6rem 1rem;
       display: flex;
       align-items: center;
-      justify-content: space-between;
       gap: 1rem;
-      margin-bottom: 1rem;
+      position: relative;
     }
 
-    .track-info {
+    .player-controls {
       display: flex;
       align-items: center;
       gap: 0.75rem;
     }
 
-    .play-btn {
+    .btn-play {
       background: var(--moss-accent);
       border: none;
-      color: white;
-      width: 32px;
-      height: 32px;
+      color: #fff;
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       transition: background 0.2s ease;
     }
 
-    .play-btn:hover {
+    .btn-play:hover {
       background: var(--moss-bright);
     }
 
-    .track-details {
+    .track-meta {
       display: flex;
       flex-direction: column;
     }
 
-    .track-title {
+    .track-name {
       font-size: 0.85rem;
       font-weight: 600;
     }
@@ -300,69 +315,108 @@
       color: var(--moss-bright);
     }
 
-    audio {
-      height: 30px;
-      max-width: 240px;
-      filter: invert(90%) hue-rotate(90deg);
-    }
-
-    /* --- Cargo Utility Footer --- */
-    footer.utility-footer {
+    /* Vertical Volume Bar Popover */
+    .volume-control-wrapper {
+      position: relative;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
+    }
+
+    .btn-vol {
+      background: transparent;
+      border: none;
       color: var(--text-muted);
-      padding-top: 1rem;
-      border-top: 1px solid var(--panel-border);
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      cursor: pointer;
+      padding: 0.2rem;
     }
 
-    footer a {
+    .btn-vol:hover {
       color: var(--text-main);
-      text-decoration: underline;
     }
 
-    /* Responsive */
+    .vol-slider-popover {
+      display: none;
+      position: absolute;
+      bottom: 45px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--panel-bg);
+      backdrop-filter: blur(var(--blur-val));
+      border: 1px solid var(--panel-border);
+      border-radius: 6px;
+      padding: 0.75rem 0.4rem;
+      height: 90px;
+    }
+
+    .volume-control-wrapper:hover .vol-slider-popover {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .vol-slider-popover input[type="range"] {
+      writing-mode: bt-lr; /* IE/Edge */
+      -webkit-appearance: slider-vertical;
+      width: 6px;
+      height: 70px;
+      accent-color: var(--moss-bright);
+      cursor: pointer;
+    }
+
+    /* Footer Right Links */
+    .footer-links-right {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+    }
+
+    .footer-links-right a {
+      color: var(--text-main);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .footer-links-right a:hover {
+      color: var(--moss-bright);
+    }
+
+    /* Mobile Adaptations */
     @media (max-width: 768px) {
       .wrapper { padding: 1rem; }
-      nav.main-nav { gap: 1rem; flex-direction: column; }
-      .music-bar-container { flex-direction: column; align-items: flex-start; }
-      footer.utility-footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+      nav.main-nav { gap: 1.5rem; flex-direction: column; }
+      footer.page-footer { flex-direction: column; align-items: stretch; }
+      .audio-player-box { justify-content: space-between; }
+      .footer-links-right { justify-content: center; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Fullscreen Video Background -->
-  <div class="backdrop-container">
-    <video class="backdrop-video" autoplay loop muted playsinline>
-      <source src="https://freight.cargo.site/m/G2883065182035325291061603402023/sam-blue-bg-2.mp4" type="video/mp4">
-    </video>
-    <div class="backdrop-overlay"></div>
-  </div>
+  <!-- Ambient Animated Background Canvas -->
+  <canvas id="bgCanvas"></canvas>
 
   <div class="wrapper">
     
-    <!-- Top Brand Header -->
+    <!-- Top Header -->
     <header class="brand-nav">
       <div>
         <span class="brand-title">Chloé Atallah</span>
         <span class="brand-alias">KLOROFIL</span>
       </div>
-      <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted);">
-        ARCHIVE N° 2026
-      </div>
+      <div class="hat-badge">M U L T I M E D I A   D E S I G N E R</div>
     </header>
 
-    <!-- Main Navigation Sections -->
+    <!-- Main Navigation (Only requested titles) -->
     <nav class="main-nav">
       <button class="nav-item" onclick="showSection('about')">About me.rtf</button>
-      <button class="nav-item active" onclick="showSection('projects')">Projects <span class="ext-arrow">↓</span></button>
-      <a href="https://instagram.com" target="_blank" class="nav-item">Instagram <span class="ext-arrow">↗</span></a>
+      <button class="nav-item active" onclick="showSection('projects')">Projects ↓</button>
     </nav>
 
-    <!-- Projects Sub-Filter (Brand Identity, Video Editing, Music, Photography) -->
+    <!-- Projects Sub-Filter Buttons -->
     <div id="subFilters" class="sub-filter-panel visible">
       <button class="sub-btn active" onclick="filterProjects('all')">All Work</button>
       <button class="sub-btn" onclick="filterProjects('brand')">Brand Identity</button>
@@ -371,101 +425,181 @@
       <button class="sub-btn" onclick="filterProjects('photography')">Photography</button>
     </div>
 
-    <!-- Projects Grid Container -->
-    <main id="projectsGrid" class="projects-grid visible">
+    <!-- Scrollable Projects Container (Holds placeholders 1..4+) -->
+    <div id="projectsContainer" class="projects-container visible">
+      <main class="projects-grid">
 
-      <!-- Item: Brand Identity -->
-      <article class="project-card" data-category="brand">
-        <div class="card-preview">[ Visual Identity Asset ]</div>
-        <div class="card-info">
-          <span class="card-tag">Brand Identity</span>
-          <h3>Brutalist Spatial Typography</h3>
-          <p class="card-desc">Comprehensive visual identity systems and modular layout architecture.</p>
-        </div>
-      </article>
+        <!-- Project 1 -->
+        <article class="project-card" data-category="brand">
+          <div class="card-preview">[ Project 1 Preview ]</div>
+          <div class="card-info">
+            <span class="card-tag">Brand Identity</span>
+            <h3>Project 1</h3>
+          </div>
+        </article>
 
-      <!-- Item: Video Editing -->
-      <article class="project-card" data-category="video">
-        <div class="card-preview">[ Video Reel Cut ]</div>
-        <div class="card-info">
-          <span class="card-tag">Video Editing</span>
-          <h3>Experimental Short Film Cut</h3>
-          <p class="card-desc">Rhythmic post-production editing, color grading, and audio syncing.</p>
-        </div>
-      </article>
+        <!-- Project 2 -->
+        <article class="project-card" data-category="video">
+          <div class="card-preview">[ Project 2 Preview ]</div>
+          <div class="card-info">
+            <span class="card-tag">Video Editing</span>
+            <h3>Project 2</h3>
+          </div>
+        </article>
 
-      <!-- Item: Music -->
-      <article class="project-card" data-category="music">
-        <div class="card-preview">[ Radio Broadcast Mix ]</div>
-        <div class="card-info">
-          <span class="card-tag">Music</span>
-          <h3>LYL Radio Mix — KLOROFIL</h3>
-          <p class="card-desc">60-minute selection of leftfield bass, percussive techno, and atmospheric ambient.</p>
-        </div>
-      </article>
+        <!-- Project 3 -->
+        <article class="project-card" data-category="music">
+          <div class="card-preview">[ Project 3 Preview ]</div>
+          <div class="card-info">
+            <span class="card-tag">Music</span>
+            <h3>Project 3</h3>
+          </div>
+        </article>
 
-      <!-- Item: Photography -->
-      <article class="project-card" data-category="photography">
-        <div class="card-preview">[ 35mm Archive Photo ]</div>
-        <div class="card-info">
-          <span class="card-tag">Photography</span>
-          <h3>Night Architecture Series</h3>
-          <p class="card-desc">High-contrast 35mm film capture of industrial and brutalist structural forms.</p>
-        </div>
-      </article>
+        <!-- Project 4 -->
+        <article class="project-card" data-category="photography">
+          <div class="card-preview">[ Project 4 Preview ]</div>
+          <div class="card-info">
+            <span class="card-tag">Photography</span>
+            <h3>Project 4</h3>
+          </div>
+        </article>
 
-    </main>
-
-    <!-- Bottom Audio Player Bar -->
-    <div class="music-bar-container">
-      <div class="track-info">
-        <button class="play-btn" onclick="toggleAudio()">▶</button>
-        <div class="track-details">
-          <span class="track-title">KLOROFIL — Live Ambient / Bass Session</span>
-          <span class="track-artist">Featured Track / Sound Archive</span>
-        </div>
-      </div>
-      <audio id="mainAudio" controls>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-      </audio>
+      </main>
     </div>
 
-    <!-- Cargo Utility Footer -->
-    <utility-footer class="utility-footer">
-      <div>KLOROFIL Archive Site No. 2026</div>
-      <div id="liveClock">-- --- ---- --:-- --</div>
-      <div>
-        <a href="mailto:contact@klorofil.com">Email</a>, 
+    <!-- Footer Area -->
+    <footer class="page-footer">
+
+      <!-- Bottom Audio Player (Integrated Box with Vertical Volume, Order Queue & No Download Controls) -->
+      <div class="audio-player-box">
+        <div class="player-controls">
+          <button class="btn-play" onclick="togglePlay()">▶</button>
+          <div class="track-meta">
+            <span id="trackTitle" class="track-name">Track 01 — Selection Queue</span>
+            <span id="trackArtist" class="track-artist">KLOROFIL Audio Archive</span>
+          </div>
+        </div>
+
+        <!-- Vertical Volume Control Popover -->
+        <div class="volume-control-wrapper">
+          <button class="btn-vol">🔊</button>
+          <div class="vol-slider-popover">
+            <input type="range" id="volSlider" min="0" max="1" step="0.05" value="0.8" oninput="changeVolume(this.value)">
+          </div>
+        </div>
+
+        <!-- Hidden Audio Engine (Disables Download, Plays Queue in Order) -->
+        <audio id="audioEngine" controlsList="nodownload"></audio>
+      </div>
+
+      <!-- Right Footer Direct Links -->
+      <div class="footer-links-right">
+        <a href="mailto:atalachloe@gmail.com">Email</a>
+        <span>/</span>
+        <a href="https://www.linkedin.com/in/chlo%C3%A9-atallah-1207426b/?locale=en-US" target="_blank">LinkedIn</a>
+        <span>/</span>
         <a href="https://instagram.com" target="_blank">Instagram</a>
       </div>
-    </utility-footer>
+
+    </footer>
 
   </div>
 
   <script>
-    // Live Digital Clock (Matches Cargo Footer Clock)
-    function updateClock() {
-      const now = new Date();
-      const options = { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
-      document.getElementById('liveClock').textContent = now.toLocaleDateString('en-GB', options).replace(',', '');
-    }
-    setInterval(updateClock, 1000);
-    updateClock();
+    // --- Canvas Background Animation ---
+    const canvas = document.getElementById('bgCanvas');
+    const ctx = canvas.getContext('2d');
+    let width, height;
 
-    // Toggle Audio Player
-    function toggleAudio() {
-      const audio = document.getElementById('mainAudio');
-      const btn = document.querySelector('.play-btn');
+    function resizeCanvas() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    // Floating particles
+    const particles = Array.from({ length: 45 }, () => ({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      r: Math.random() * 2 + 1,
+      dx: (Math.random() - 0.5) * 0.4,
+      dy: (Math.random() - 0.5) * 0.4,
+      alpha: Math.random() * 0.4 + 0.1
+    }));
+
+    function drawScene() {
+      ctx.clearRect(0, 0, width, height);
+
+      // Radial Green Glow
+      const grad = ctx.createRadialGradient(width / 2, height / 2, 50, width / 2, height / 2, Math.max(width, height) / 1.2);
+      grad.addColorStop(0, 'rgba(25, 45, 28, 0.4)');
+      grad.addColorStop(1, 'rgba(11, 15, 12, 1)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, width, height);
+
+      // Render Particles
+      particles.forEach(p => {
+        p.x += p.dx;
+        p.y += p.dy;
+        if (p.x < 0) p.x = width;
+        if (p.x > width) p.x = 0;
+        if (p.y < 0) p.y = height;
+        if (p.y > height) p.y = 0;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(127, 169, 118, ${p.alpha})`;
+        ctx.fill();
+      });
+
+      requestAnimationFrame(drawScene);
+    }
+    drawScene();
+
+    // --- Audio Playlist Queue Engine ---
+    const playlist = [
+      { title: "Selection 01 — Ambient Cut", artist: "KLOROFIL", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
+      { title: "Selection 02 — Rhythm Session", artist: "KLOROFIL", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" },
+      { title: "Selection 03 — Bass Archive", artist: "KLOROFIL", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" }
+    ];
+    let currentTrackIdx = 0;
+
+    const audio = document.getElementById('audioEngine');
+    const playBtn = document.querySelector('.btn-play');
+    const trackTitle = document.getElementById('trackTitle');
+    const trackArtist = document.getElementById('trackArtist');
+
+    function loadTrack(idx) {
+      audio.src = playlist[idx].src;
+      trackTitle.textContent = playlist[idx].title;
+      trackArtist.textContent = playlist[idx].artist;
+    }
+    loadTrack(currentTrackIdx);
+
+    function togglePlay() {
       if (audio.paused) {
         audio.play();
-        btn.textContent = '❚❚';
+        playBtn.textContent = '❚❚';
       } else {
         audio.pause();
-        btn.textContent = '▶';
+        playBtn.textContent = '▶';
       }
     }
 
-    // Projects Category Filtering
+    function changeVolume(val) {
+      audio.volume = val;
+    }
+
+    // Play next track automatically in sequential order
+    audio.addEventListener('ended', () => {
+      currentTrackIdx = (currentTrackIdx + 1) % playlist.length;
+      loadTrack(currentTrackIdx);
+      audio.play();
+    });
+
+    // --- Projects Filtering & Section Toggles ---
     function filterProjects(cat) {
       const cards = document.querySelectorAll('.project-card');
       const buttons = document.querySelectorAll('.sub-btn');
@@ -482,16 +616,15 @@
       });
     }
 
-    // Section Toggle (About vs Projects)
     function showSection(sec) {
-      const grid = document.getElementById('projectsGrid');
+      const container = document.getElementById('projectsContainer');
       const filters = document.getElementById('subFilters');
       
       if (sec === 'projects') {
-        grid.classList.add('visible');
+        container.classList.add('visible');
         filters.classList.add('visible');
       } else {
-        grid.classList.remove('visible');
+        container.classList.remove('visible');
         filters.classList.remove('visible');
       }
     }
