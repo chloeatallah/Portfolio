@@ -8,6 +8,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- SoundCloud Widget API -->
+  <script src="https://w.soundcloud.com/player/api.js"></script>
 
   <style>
     :root {
@@ -37,7 +40,7 @@
       position: relative;
     }
 
-    /* Temporary Animated Moss-Green Atmospheric Background */
+    /* Atmospheric Background */
     .bg-atmosphere {
       position: fixed;
       inset: 0;
@@ -51,7 +54,6 @@
         linear-gradient(135deg, #0b0f0c 0%, #121a14 50%, #0b0f0c 100%);
     }
 
-    /* Subtitle grid overlay effect */
     .bg-grid-pattern {
       position: absolute;
       inset: 0;
@@ -61,7 +63,7 @@
       background-size: 40px 40px;
     }
 
-    /* Shell Layout */
+    /* Page Wrapper */
     .page-wrapper {
       position: relative;
       z-index: 10;
@@ -72,7 +74,7 @@
       padding: 32px;
     }
 
-    /* Top Brand Header */
+    /* Header */
     header.brand-header {
       display: flex;
       justify-content: space-between;
@@ -92,7 +94,7 @@
       text-transform: uppercase;
     }
 
-    /* Reserved 3D Character Container Slot */
+    /* Reserved 3D Character Stage Container */
     .character-3d-stage {
       position: relative;
       width: 100%;
@@ -288,8 +290,8 @@
       background: var(--moss-accent);
       border: none;
       color: #fff;
-      width: 32px;
-      height: 32px;
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
       cursor: pointer;
       display: flex;
@@ -370,6 +372,11 @@
       cursor: pointer;
     }
 
+    /* Hidden SoundCloud Iframe Embed */
+    #sc-iframe-holder {
+      display: none;
+    }
+
     /* Bottom Right Direct Links */
     .footer-bottom-row {
       display: flex;
@@ -404,14 +411,14 @@
 </head>
 <body>
 
-  <!-- Temporary CSS Atmospheric Background -->
+  <!-- Background Atmosphere -->
   <div class="bg-atmosphere">
     <div class="bg-grid-pattern"></div>
   </div>
 
   <div class="page-wrapper">
 
-    <!-- Top Brand Header -->
+    <!-- Top Header -->
     <header class="brand-header">
       <span class="brand-name">Chloé Atallah</span>
     </header>
@@ -426,7 +433,8 @@
 
     <!-- Main Navigation Sections -->
     <nav class="main-nav">
-      <button class="nav-btn" id="aboutBtn">About me.rtf</button>
+      <!-- 3. Added arrow to About me.rtf -->
+      <button class="nav-btn" id="aboutBtn">About me.rtf <span>↗</span></button>
       <button class="nav-btn" id="projectsBtn">Projects <span>↓</span></button>
     </nav>
 
@@ -479,25 +487,30 @@
     <!-- Footer Area -->
     <footer class="site-footer">
 
-      <!-- Bottom Audio Player Box -->
+      <!-- 2. Clean Audio Player Box Connected to SoundCloud (No Glitches) -->
       <div class="audio-player-box">
         <div class="player-left">
           <button class="play-btn" id="playBtn">▶</button>
           <div class="track-meta">
-            <span id="trackTitle" class="track-title">Selection 01 — Sound Archive</span>
-            <span id="trackSub" class="track-sub">KLOROFIL Audio Queue</span>
+            <span id="trackTitle" class="track-title">SoundCloud Archive Queue</span>
+            <span id="trackSub" class="track-sub">KLOROFIL — SoundCloud</span>
           </div>
         </div>
 
-        <!-- Vertical Volume Control Popover -->
+        <!-- Vertical Volume Control -->
         <div class="volume-wrapper">
           <button class="vol-btn">🔊</button>
           <div class="vol-slider-popover">
-            <input type="range" id="volSlider" min="0" max="1" step="0.05" value="0.8">
+            <input type="range" id="volSlider" min="0" max="100" value="80">
           </div>
         </div>
+      </div>
 
-        <audio id="audioEngine" controlsList="nodownload"></audio>
+      <!-- Hidden SoundCloud Iframe Integration -->
+      <div id="sc-iframe-holder">
+        <iframe id="sc-player" width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay"
+          src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/klorofilmusic&color=%237fa976&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false">
+        </iframe>
       </div>
 
       <!-- Bottom Right Direct Links -->
@@ -515,45 +528,39 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // Audio Player Logic
-      const playlist = [
-        { title: "Selection 01 — Sound Archive", sub: "KLOROFIL Audio Queue", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
-        { title: "Selection 02 — Leftfield Rhythm", sub: "KLOROFIL Audio Queue", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" },
-        { title: "Selection 03 — Bass Archive", sub: "KLOROFIL Audio Queue", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" }
-      ];
-      let currentIdx = 0;
-
-      const audio = document.getElementById('audioEngine');
+      // 2. SoundCloud Widget Integration & Controls
+      const iframe = document.getElementById('sc-player');
+      const widget = SC.Widget(iframe);
       const playBtn = document.getElementById('playBtn');
       const trackTitle = document.getElementById('trackTitle');
       const trackSub = document.getElementById('trackSub');
       const volSlider = document.getElementById('volSlider');
 
-      function loadTrack(idx) {
-        audio.src = playlist[idx].src;
-        trackTitle.textContent = playlist[idx].title;
-        trackSub.textContent = playlist[idx].sub;
-      }
-      loadTrack(currentIdx);
+      widget.bind(SC.Widget.Events.READY, function() {
+        widget.setVolume(80);
+      });
+
+      widget.bind(SC.Widget.Events.PLAY, function() {
+        playBtn.textContent = '❚❚';
+        widget.getCurrentSound(function(sound) {
+          if (sound) {
+            trackTitle.textContent = sound.title || "SoundCloud Track";
+            trackSub.textContent = sound.user ? sound.user.username : "KLOROFIL";
+          }
+        });
+      });
+
+      widget.bind(SC.Widget.Events.PAUSE, function() {
+        playBtn.textContent = '▶';
+      });
 
       playBtn.addEventListener('click', function() {
-        if (audio.paused) {
-          audio.play().catch(e => console.log("Audio play deferred"));
-          playBtn.textContent = '❚❚';
-        } else {
-          audio.pause();
-          playBtn.textContent = '▶';
-        }
+        widget.toggle();
       });
 
+      // Working Vertical Volume Slider (0-100)
       volSlider.addEventListener('input', function() {
-        audio.volume = this.value;
-      });
-
-      audio.addEventListener('ended', function() {
-        currentIdx = (currentIdx + 1) % playlist.length;
-        loadTrack(currentIdx);
-        audio.play().catch(e => console.log("Next track deferred"));
+        widget.setVolume(this.value);
       });
 
       // Toggle/Undrop Logic for Projects Button
