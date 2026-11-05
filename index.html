@@ -40,7 +40,7 @@
       position: relative;
     }
 
-    /* Ambient Motion Layer */
+    /* Ambient Motion Background Layer */
     .backdrop-container {
       position: fixed;
       inset: 0;
@@ -55,7 +55,7 @@
         var(--bg-dark);
     }
 
-    /* Main Page Shell */
+    /* Main Shell */
     .wrapper {
       position: relative;
       z-index: 10;
@@ -66,7 +66,7 @@
       padding: 2rem;
     }
 
-    /* Top Brand Header */
+    /* Header */
     header.brand-nav {
       display: flex;
       justify-content: space-between;
@@ -109,4 +109,10 @@
       border: 1px solid var(--panel-border);
       padding: 0.35rem 0.85rem;
       border-radius: 20px;
-      transition: all 0.3s
+      transition: all 0.3s ease;
+    }
+
+    .hat-badge:hover {
+      background: rgba(79, 121, 66, 0.3);
+      border-color: var(--moss-bright);
+      box-shadow
